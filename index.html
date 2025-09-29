@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PIXI Shapes Animation</title>
+  <link rel="stylesheet" href="/src/styles.css">
+</head>
+<body>
+  <div class="container">
+    <div class="info-panel">
+      <div class="info-item">
+        <label>Shapes:</label>
+        <span id="shapeCount">0</span>
+      </div>
+      <div class="info-item">
+        <label>Surface Area:</label>
+        <span id="surfaceArea">0</span>
+        <span class="unit">px²</span>
+      </div>
+    </div>
+
+    <div id="canvas-container"></div>
+
+    <div class="control-panel">
+      <div class="control-group">
+        <label>Shapes/Second:</label>
+        <button id="decreaseShapes" class="btn">-</button>
+        <span id="shapesPerSecond" class="value">1</span>
+        <button id="increaseShapes" class="btn">+</button>
+      </div>
+      <div class="control-group">
+        <label>Gravity:</label>
+        <button id="decreaseGravity" class="btn">-</button>
+        <span id="gravityValue" class="value">100</span>
+        <button id="increaseGravity" class="btn">+</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
