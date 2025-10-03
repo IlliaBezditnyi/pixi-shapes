@@ -7,6 +7,7 @@ import { GameConfig } from "@/utils/GameConfig";
 import { CanvasView } from "@/views/CanvasView";
 import { UIView } from "@/views/UIView";
 import { InputController } from "./InputController";
+import { ColorUtils } from "@/utils/ColorUtils";
 
 export class GameController implements IObserver {
   private shapeManager: ShapeManager;
@@ -53,8 +54,6 @@ export class GameController implements IObserver {
     this.lastSpawnTime = 0;
 
     this.canvasView.getApp().ticker.add(this.gameLoop.bind(this));
-
-    console.log('🎮 Game started!');
   }
 
   public stop(): void {
@@ -62,8 +61,6 @@ export class GameController implements IObserver {
 
     this.isRunning = false;
     this.canvasView.getApp().ticker.remove(this.gameLoop.bind(this));
-
-    console.log('⏸️ Game stopped!');
   }
 
   private gameLoop(): void {
@@ -85,7 +82,7 @@ export class GameController implements IObserver {
 
     if (shapesPerSecond === 0) return;
 
-    const spawnInterval = 1000 / shapesPerSecond; // Milliseconds between spawns
+    const spawnInterval = 1000 / shapesPerSecond;
 
     if (currentTime - this.lastSpawnTime >= spawnInterval) {
       const shape = ShapeFactory.createRandomShapeAtTop(GameConfig.Canvas.width);
@@ -98,13 +95,21 @@ export class GameController implements IObserver {
     const clickedShape = this.shapeManager.findShapeAt(x, y);
 
     if (clickedShape) {
-      this.shapeManager.removeShape(clickedShape.id);
-      this.canvasView.removeShape(clickedShape.id);
-      console.log(`💥 Shape removed at (${Math.round(x)}, ${Math.round(y)})`);
+      const clickedType = clickedShape.shapeType;
+      const newColor = ColorUtils.getRandomVibrantColor();
+      
+      const allShapes = this.shapeManager.getShapes();
+      let changedCount = 0;
+      
+      for (const shape of allShapes) {
+        if (shape.shapeType === clickedType) {
+          (shape as any).color = newColor;
+          changedCount++;
+        }
+      }
     } else {
       const shape = ShapeFactory.createShape(ShapeType.RANDOM, x, y);
       this.shapeManager.addShape(shape);
-      console.log(`✨ Shape created at (${Math.round(x)}, ${Math.round(y)})`);
     }
   }
 
@@ -116,7 +121,6 @@ export class GameController implements IObserver {
     if (current < max) {
       GameConfig.Spawn.shapesPerSecond = Math.min(current + step, max);
       this.updateUI();
-      console.log(`⬆️ Shapes/second: ${GameConfig.Spawn.shapesPerSecond}`);
     }
   }
 
@@ -128,7 +132,6 @@ export class GameController implements IObserver {
     if (current > min) {
       GameConfig.Spawn.shapesPerSecond = Math.max(current - step, min);
       this.updateUI();
-      console.log(`⬇️ Shapes/second: ${GameConfig.Spawn.shapesPerSecond}`);
     }
   }
 
@@ -140,7 +143,6 @@ export class GameController implements IObserver {
     if (current < max) {
       GameConfig.Physics.gravity = Math.min(current + step, max);
       this.updateUI();
-      console.log(`⬆️ Gravity: ${GameConfig.Physics.gravity}`);
     }
   }
 
@@ -152,7 +154,6 @@ export class GameController implements IObserver {
     if (current > min) {
       GameConfig.Physics.gravity = Math.max(current - step, min);
       this.updateUI();
-      console.log(`⬇️ Gravity: ${GameConfig.Physics.gravity}`);
     }
   }
 
@@ -182,7 +183,5 @@ export class GameController implements IObserver {
     
     this.shapeManager.clear();
     this.canvasView.destroy();
-    
-    console.log('🗑️ Game destroyed');
   }
 }

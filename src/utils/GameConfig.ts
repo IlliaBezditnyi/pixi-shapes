@@ -1,7 +1,7 @@
 export namespace GameConfig {
     export class Canvas {
-        public static width: number = 800;
-        public static height: number = 600;
+        public static width: number = 1190;
+        public static height: number = 740;
     }
 
     export class Physics {

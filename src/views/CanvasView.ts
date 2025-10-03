@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
-import { GameConfig } from "@/utils/GameConfig";
+import { ShapeType } from '@/types/types';
+import { GameConfig } from '@/utils/GameConfig';
 import { Shape } from '@/models/{shapes}/Shape';
-import { RendererFactory } from './{renderers}/RendererFactory';
 
 export class CanvasView {
   private app: PIXI.Application;
@@ -38,22 +38,40 @@ export class CanvasView {
     let graphics = this.shapeGraphics.get(shape.id);
 
     if (!graphics) {
-      const renderer = RendererFactory.getRenderer(shape.shapeType);
-      renderer.render(shape);
-      
-      graphics = renderer.getGraphics();
+      graphics = new PIXI.Graphics();
       
       this.container.addChild(graphics);
       this.shapeGraphics.set(shape.id, graphics);
-    } else {
-      const renderer = RendererFactory.getRenderer(shape.shapeType);
       
-      graphics.x = shape.x;
-      graphics.y = shape.y;
+      graphics.interactive = true;
     }
 
-    graphics.eventMode = 'static';
-    graphics.cursor = 'pointer';
+    graphics.clear();
+    
+    const vertices = shape.getVertices();
+    
+    graphics.beginFill(shape.color);
+    
+    if (vertices.length > 1) {
+      graphics.moveTo(vertices[0].x - shape.x, vertices[0].y - shape.y);
+      for (let i = 1; i < vertices.length; i++) {
+        graphics.lineTo(vertices[i].x - shape.x, vertices[i].y - shape.y);
+      }
+      graphics.closePath();
+    } else {
+      if (shape.shapeType === ShapeType.CIRCLE) {
+        const circle = shape as any;
+        graphics.drawCircle(0, 0, circle.radius);
+      } else if (shape.shapeType === ShapeType.ELLIPSE) {
+        const ellipse = shape as any;
+        graphics.drawEllipse(0, 0, ellipse.radiusX, ellipse.radiusY);
+      }
+    }
+    
+    graphics.endFill();
+    
+    graphics.x = shape.x;
+    graphics.y = shape.y;
   }
 
   public removeShape(id: string): void {
@@ -97,6 +115,7 @@ export class CanvasView {
   public getCanvas(): HTMLCanvasElement {
     return this.app.view as HTMLCanvasElement;
   }
+
 
   public resize(width: number, height: number): void {
     this.app.renderer.resize(width, height);

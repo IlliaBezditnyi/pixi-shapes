@@ -1,16 +1,47 @@
+// src/main.ts
+
 import './styles.css';
+import { GameController } from './controllers/GameController';
 
 console.log('🚀 PIXI Shapes Animation Starting...');
 
-// We'll implement the actual game logic in the next steps
-// For now, let's just verify the setup works
+let gameController: GameController | null = null;
 
-document.addEventListener('DOMContentLoaded', () => {
+// Wait for DOM to be ready
+document.addEventListener('DOMContentLoaded', async () => {
   console.log('✅ DOM Loaded');
-  console.log('✅ Project structure is ready!');
-  
-  const container = document.getElementById('canvas-container');
-  if (container) {
-    container.innerHTML = '<p style="padding: 40px; text-align: center; color: #666;">Canvas will appear here. Setup complete! 🎉</p>';
+
+  try {
+    // Small delay to ensure everything is ready
+    await new Promise(resolve => setTimeout(resolve, 100));
+
+    // Create and initialize game controller
+    gameController = new GameController();
+    console.log('🔧 GameController created');
+    
+    gameController.initialize();
+    console.log('🔧 GameController initialized');
+    
+    // Start the game after initialization
+    gameController.start();
+    console.log('🔧 GameController started');
+
+    console.log('🎉 Game is running! Click to create or destroy shapes!');
+    console.log('📊 Check the top panel for statistics');
+    console.log('🎮 Use +/- buttons to control spawn rate and gravity');
+
+    // Make game controller globally accessible for debugging
+    (window as any).game = gameController;
+    
+  } catch (error) {
+    console.error('❌ Failed to start game:', error);
+    console.error('Error details:', error);
+  }
+});
+
+// Cleanup on page unload
+window.addEventListener('beforeunload', () => {
+  if (gameController) {
+    gameController.destroy();
   }
 });

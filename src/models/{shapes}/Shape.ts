@@ -4,7 +4,7 @@ export abstract class Shape {
   public readonly id: string;
   public x: number;
   public y: number;
-  public readonly color: number;
+  public color: number;
   public velocityY: number;
   public readonly size: number;
   public readonly shapeType: ShapeType;
