@@ -55,6 +55,7 @@ body {
   background: #f8f9fa;
   border: 3px solid white;
   position: relative;
+  height: 80vh;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
