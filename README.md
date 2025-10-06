@@ -2,6 +2,8 @@
 
 Interactive falling shapes animation built with PIXI.js, TypeScript, and MVC architecture.
 
+<img width="1909" height="914" alt="image" src="https://github.com/user-attachments/assets/e42213ba-32e9-4bd0-9439-f8a9b153cd38" />
+
 ## Features
 
 - 🎨 Multiple shape types (triangle, square, pentagon, hexagon, circle, ellipse)
