@@ -14,7 +14,7 @@ export class Ellipse extends Shape {
   }
 
   public getVertices(): Point[] {
-    // Ellipses don't have vertices, return center point
+    // Return center point, because circles don't have vertices
     return [{ x: this.x, y: this.y }];
   }
 

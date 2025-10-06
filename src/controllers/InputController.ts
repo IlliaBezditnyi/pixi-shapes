@@ -18,6 +18,8 @@ export class InputController {
     this.clickCallback(position.x, position.y);
   }
 
+
+  // Converts mouse event to canvas-local coordinates
   private getLocalPosition(event: MouseEvent): Point {
     const rect = this.canvas.getBoundingClientRect();
     const scaleX = this.canvas.width / rect.width;

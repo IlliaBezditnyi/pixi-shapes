@@ -2,13 +2,13 @@ import { ShapeType } from '@/types/types';
 import { ColorUtils } from '@/utils/ColorUtils';
 import { MathUtils } from '@/utils/MathUtils';
 import { GameConfig } from '@/utils/GameConfig';
-import { Shape } from './{shapes}/Shape';
-import { Triangle } from './{shapes}/Triangle';
-import { Square } from './{shapes}/Square';
-import { Pentagon } from './{shapes}/Pentagon';
-import { Hexagon } from './{shapes}/Hexagon';
-import { Circle } from './{shapes}/Circle';
-import { Ellipse } from './{shapes}/Ellipse';
+import { Shape } from './shapes/Shape';
+import { Triangle } from './shapes/Triangle';
+import { Square } from './shapes/Square';
+import { Pentagon } from './shapes/Pentagon';
+import { Hexagon } from './shapes/Hexagon';
+import { Circle } from './shapes/Circle';
+import { Ellipse } from './shapes/Ellipse';
 
 export class ShapeFactory {
   public static createShape(

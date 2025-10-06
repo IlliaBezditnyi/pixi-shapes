@@ -34,6 +34,7 @@ export abstract class Shape {
     this.y += this.velocityY * deltaTime;
   }
 
+  // Checks if shape is below screen
   public isOutOfBounds(height: number): boolean {
     return this.y - this.size > height;
   }

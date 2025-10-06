@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 import { ShapeType } from '@/types/types';
 import { GameConfig } from '@/utils/GameConfig';
-import { Shape } from '@/models/{shapes}/Shape';
+import { Shape } from '@/models/shapes/Shape';
 
 export class CanvasView {
   private app: PIXI.Application;
@@ -72,16 +72,6 @@ export class CanvasView {
     
     graphics.x = shape.x;
     graphics.y = shape.y;
-  }
-
-  public removeShape(id: string): void {
-    const graphics = this.shapeGraphics.get(id);
-    
-    if (graphics) {
-      this.container.removeChild(graphics);
-      graphics.destroy();
-      this.shapeGraphics.delete(id);
-    }
   }
 
   public renderAll(shapes: readonly Shape[]): void {

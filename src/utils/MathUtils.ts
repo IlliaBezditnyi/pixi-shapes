@@ -9,6 +9,7 @@ export class MathUtils {
     return Math.random() * (max - min) + min;
   }
 
+  // Calculates the area of a polygon using the Shoelace formula
   static calculatePolygonArea(vertices: Point[]): number {
     let area = 0;
     const n = vertices.length;

@@ -28,6 +28,7 @@ export class GameController implements IObserver {
   public initialize(): void {
     this.canvasView.initialize('canvas-container');
 
+    // Register as observer of ShapeManager
     this.shapeManager.attach(this);
 
     this.uiView.bindControlEvents({
@@ -43,7 +44,7 @@ export class GameController implements IObserver {
 
     this.updateUI();
 
-    console.log('✅ Game initialized successfully!');
+    console.log('Game initialized successfully!');
   }
 
   public start(): void {
@@ -53,6 +54,7 @@ export class GameController implements IObserver {
     this.lastFrameTime = performance.now();
     this.lastSpawnTime = 0;
 
+    // Start the game loop using ticker
     this.canvasView.getApp().ticker.add(this.gameLoop.bind(this));
   }
 
@@ -70,6 +72,7 @@ export class GameController implements IObserver {
     const deltaTime = (currentTime - this.lastFrameTime) / 1000;
     this.lastFrameTime = currentTime;
 
+    // Update physics
     this.shapeManager.update(deltaTime);
 
     this.spawnShapes(currentTime);
@@ -77,6 +80,7 @@ export class GameController implements IObserver {
     this.canvasView.renderAll(this.shapeManager.getShapes());
   }
 
+  // Spawn new shapes based on shapesPerSecond rate
   private spawnShapes(currentTime: number): void {
     const shapesPerSecond = GameConfig.Spawn.shapesPerSecond;
 
@@ -157,6 +161,7 @@ export class GameController implements IObserver {
     }
   }
 
+  // Called when ShapeManager state changes
   public update(subject: ISubject): void {
     if (subject instanceof ShapeManager) {
       this.updateUI();

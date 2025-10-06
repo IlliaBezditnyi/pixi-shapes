@@ -1,6 +1,6 @@
 import { IObserver } from '@/interfaces/IObserver';
 import { GameConfig } from '@/utils/GameConfig';
-import { Shape } from './{shapes}/Shape';
+import { Shape } from './shapes/Shape';
 import { ISubject } from '@/interfaces/ISubject';
 
 export class ShapeManager implements ISubject {
@@ -30,21 +30,6 @@ export class ShapeManager implements ISubject {
   public addShape(shape: Shape): void {
     this.shapes.push(shape);
     this.notify();
-  }
-
-  public removeShape(id: string): boolean {
-    const initialLength = this.shapes.length;
-    this.shapes = this.shapes.filter(shape => shape.id !== id);
-    
-    if (this.shapes.length < initialLength) {
-      this.notify();
-      return true;
-    }
-    return false;
-  }
-
-  public removeShapeByReference(shape: Shape): boolean {
-    return this.removeShape(shape.id);
   }
 
   public update(deltaTime: number): void {

@@ -8,7 +8,7 @@ Interactive falling shapes animation built with PIXI.js, TypeScript, and MVC arc
 - 🌈 Random colors for each shape
 - 🎮 Interactive controls for spawn rate and gravity
 - 📊 Real-time statistics (shape count, surface area)
-- 🖱️ Click to create or destroy shapes
+- 🖱️ Click to create new shapes, and change shapes color
 - ⚡ Physics-based gravity simulation
 
 ## Tech Stack
@@ -55,17 +55,16 @@ src/
 ├── models/          # Domain logic and data
 │   ├── shapes/      # Shape classes
 │   └── managers/    # Game state management
-├── views/           # Rendering logic
-│   └── renderers/   # Shape rendering strategies
+├── views/           # Shapes and UI rendering
 ├── controllers/     # User input and game flow
 ├── interfaces/      # TypeScript interfaces
-├── utils/           # Helper functions
+├── utils/           # Helper functions and GameConfig
 └── main.ts          # Application entry point
 \`\`\`
 
 ## Design Patterns
 
 - **MVC** - Separation of concerns
-- **Factory** - Object creation
-- **Strategy** - Rendering algorithms
+- **Factory** - Shapes creation
 - **Observer** - State change notifications
+- **Singleton** - Global accessibility of GameConfig without initialization

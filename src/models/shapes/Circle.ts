@@ -11,7 +11,7 @@ export class Circle extends Shape {
   }
 
   public getVertices(): Point[] {
-    // Circles don't have vertices, return center point
+    // Return center point, because circles don't have vertices
     return [{ x: this.x, y: this.y }];
   }
 

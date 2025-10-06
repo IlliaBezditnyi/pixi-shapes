@@ -49,18 +49,3 @@ export interface ControlCallbacks {
   onIncreaseGravity: () => void;
   onDecreaseGravity: () => void;
 }
-
-export const DEFAULT_CONFIG: GameConfig = {
-  width: 800,
-  height: 600,
-  initialShapesPerSecond: 1,
-  initialGravity: 100,
-  minShapesPerSecond: 0,
-  maxShapesPerSecond: 10,
-  minGravity: 0,
-  maxGravity: 500,
-  shapeMinSize: 30,
-  shapeMaxSize: 80,
-  shapesPerSecondStep: 1,
-  gravityStep: 50
-};
